@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 20 }
   has_many :friendships
+  has_many
   has_many :pending_friendships, -> { where(confirmed: false) }, class_name: 'Friendship'
   has_many :confirmed_friendships, -> { where(confirmed: true) }, class_name: 'Friendship'
   has_many :friendship_requests, -> { where(friend_id: :id) }, class_name: 'Friendship'
@@ -19,7 +20,7 @@ class User < ApplicationRecord
 
   def friends
     friends_array = friendships.map { |friendship| friendship.friend if friendship.confirmed }
-    # friends_array += inverse_friendships.map { |friendship| friendship.friendship.user if friendship.confirmed }
+    friends_array += inverse_friendships.map { |friendship| friendship.friendship.user if friendship.confirmed }
     friends_array.compact
   end
 

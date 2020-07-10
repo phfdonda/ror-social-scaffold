@@ -13,7 +13,7 @@ class FriendshipsController < ApplicationController
   end
 
   def update
-    user = User.find_by(id: current_user)
+    user = User.find_user(id: current_user)
     friend = User.find(params[:id])
     @friendship = Friendship.find_by(user_id: friend, friend_id: user)
     @inverse_friendship = Friendship.find_by(user_id: user, friend_id: friend)
@@ -23,7 +23,7 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    user = User.find_by(id: current_user)
+    user = User.find_user(id: current_user)
     friend = User.find(params[:id])
     @friendship = Friendship.find_by(user_id: friend, friend_id: user)
     @inverse_friendship = Friendship.find_by(user_id: user, friend_id: friend)
