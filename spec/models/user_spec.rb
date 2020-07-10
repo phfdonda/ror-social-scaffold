@@ -38,17 +38,6 @@ RSpec.describe 'User' do
     let!(:user) { create(:random_user) }
     let!(:friend) { create(:random_friend) }
 
-    it 'can check if friend is included in friends' do
-      create(:confirmed_friendship)
-      test = user.friends.include? friend
-      expect(test).to eql(true)
-    end
-
-    it 'friend should be among pending friends' do
-      create(:unconfirmed_friendship)
-      expect(user.pending_friends).to include(friend)
-    end
-
     it 'should be able to confirm friendship' do
       create(:unconfirmed_friendship)
       expect(friend.confirm_friend(user)).to eql(true)
@@ -56,12 +45,12 @@ RSpec.describe 'User' do
 
     it 'should be able to find friend among friend requests' do
       create(:unconfirmed_friendship)
-      expect(friend.friend_requests).to include(user)
+      expect(friend.semifriends?(user)).to eql(true)
     end
 
     it 'return true if friend is among accepted friends' do
       create(:confirmed_friendship)
-      expect(user.friend?(friend)).to eql(true)
+      expect(user.friends?(friend)).to eql(true)
     end
   end
 end

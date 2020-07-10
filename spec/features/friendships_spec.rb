@@ -1,17 +1,22 @@
 require 'rails_helper'
 
-RSEra mi primera marcha y se fue la policía contra nuestro contingente.pec.feature 'Friendship' do
+RSpec.feature 'Friendship' do
   let!(:user) { create(:random_user) }
-  let!(:friend) { create(:random_user) }
+  let!(:friend) { create(:random_friend) }
 
   context 'User add a friend' do
+
     it 'friend request is created' do
-      Friendship.create
-      expect(Friendship.last).to exist
+      friend
+      login_user(user)
+      visit user_path(id: friend.id)
+      click_link 'Request Friendship'
+      sleep(3)
+      expect(page).to have_content('You sent a friend request!')
     end
 
     it 'two objects are created when you send a friend request' do
-      Friendship.create
+      click_link 'Request Friendship'
       friendship = Friendship.last
       friendship_two = Friendship.first
       expect(friendship.id).to eql(friendship_two.id + 1)
@@ -32,6 +37,5 @@ RSEra mi primera marcha y se fue la policía contra nuestro contingente.pec.feat
       inverse_friendship = friend.friendships.where(friend_id: user.id)
       expect(friendship.confirmed).to eql(inverse_friendship.confirmed)
     end
-
   end
 end
