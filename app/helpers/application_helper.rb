@@ -24,4 +24,12 @@ module ApplicationHelper
       link_to('Request Friendship', user_friendships_path(user_id: current_user, friend_id: user.id), method: :post)
     end
   end
+
+  def pending_invitations
+    current_user.pending_friendships
+  end
+
+  def pending_requests
+    current_user.friendship_requests
+  end
 end

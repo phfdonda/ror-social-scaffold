@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
   has_many :pending_friendships, -> { where(confirmed: false) }, class_name: 'Friendship'
   has_many :confirmed_friendships, -> { where(confirmed: true) }, class_name: 'Friendship'
-  has_many :friendship_requests, -> { where(friend_id: :id) }, class_name: 'Friendship'
+  has_many :friendship_requests, -> { where(confirmed: false) }, foreign_key: 'friend_id', class_name: 'Friendship'
   has_many :posts
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
