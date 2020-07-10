@@ -17,12 +17,11 @@ module ApplicationHelper
   end
 
   def add_friend(user)
-    friend = User.find_by(id: user.id)
-    user = current_user
-    if user.friend?(friend)
-      link_to('Dismiss Friendship', user_friendship_path(id: like.id, post_id: post.id), method: :delete)
+    friendship = Friendship.find_by(user_id: current_user.id, friend_id: user.id)
+    if user.friend?(current_user)
+      link_to('Dismiss Friendship', user_friendship_path(id: friendship.id, post_id: post.id), method: :delete)
     else
-      link_to('Request Friendship', user_friendship_path(post_id: post.id), method: :post)
+      link_to('Request Friendship', user_friendships_path(user_id: current_user, friend_id: user.id), method: :post)
     end
   end
 end
