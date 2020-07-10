@@ -5,7 +5,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    like = Like.find_by(id: params[:id], user: current_user, post_id: params[:post_id])
+    like = Like.find_like(params[:id], current_user, params[:post_id])
     like&.destroy
     redirect_to posts_path, notice: 'You disliked a post.'
   end

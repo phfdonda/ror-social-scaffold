@@ -3,4 +3,8 @@ class Like < ApplicationRecord
 
   belongs_to :user
   belongs_to :post
+
+  def self.find_like(like, user, post)
+    find_by(id: like, user: user, post_id: post)
+  end
 end
