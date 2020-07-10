@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 20 }
   has_many :friendships
-  has_many
+  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
   has_many :pending_friendships, -> { where(confirmed: false) }, class_name: 'Friendship'
   has_many :confirmed_friendships, -> { where(confirmed: true) }, class_name: 'Friendship'
   has_many :friendship_requests, -> { where(friend_id: :id) }, class_name: 'Friendship'
@@ -14,12 +14,15 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  def self.find_user(id)
-    find(id)
-  end
+  scope :find_user, ->(user = false) { find(user) }
+
+
+  # def self.find_user(id)
+  #   find(id)
+  # end
 
   def friends
-    friends_array = friendships.map { |friendship| friendship.friend if friendship.confirmed }
+    friends_array = confirmed_friendships
     friends_array += inverse_friendships.map { |friendship| friendship.friendship.user if friendship.confirmed }
     friends_array.compact
   end
@@ -39,11 +42,15 @@ class User < ApplicationRecord
     friends.include?(user)
   end
 
-  def self.are_friends?(possible_friend)
-    Friendship.find(user_id: :id, friend_id: possible_friend.id, confirmed: true) ? true : false
+  def friends?(possible_friend)
+    return false if confirmed_friendships.nil?
+
+    confirmed_friendships.find_friendship(possible_friend) ? true : false
   end
 
-  def self.are_semifriends?(possible_friend)
-    Friendship.find(user_id: :id, friend_id: possible_friend.id, confirmed: false) ? true : false
+  def semifriends?(possible_friend)
+    return false if pending_friendships.nil?
+
+    pending_friendships.find_friendship(possible_friend) ? true : false
   end
 end
