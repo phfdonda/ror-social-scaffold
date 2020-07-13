@@ -94,5 +94,5 @@ TBA
 - Just show posts of friends and current user.
 - Change the button when you invite someone
 
-- Do not allow double friendship friend_requests
-- Do not allow friendship with yourself
+- Do not allow double friendship friend_requests - IN PROGRESS
+- Do not allow friendship with yourself - DONE
