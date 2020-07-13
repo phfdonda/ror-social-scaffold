@@ -93,5 +93,6 @@ TBA
 - Create an option for accepting a friend
 - Just show posts of friends and current user.
 - Change the button when you invite someone
+
 - Do not allow double friendship friend_requests
 - Do not allow friendship with yourself
