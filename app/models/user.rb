@@ -39,10 +39,7 @@ class User < ApplicationRecord
     end
   end
 
-  def friend?(user)
-    friends.include?(user)
-  end
-
+  # TODO: make friends? and semifriends? to work
   def friends?(possible_friend)
     return false if confirmed_friendships.empty?
 
