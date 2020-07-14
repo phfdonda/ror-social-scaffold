@@ -16,14 +16,18 @@ module ApplicationHelper
     end
   end
 
-  def add_friend(user)
+  def add_friend(friend)
      # TODO: CHANGE find_by to model scope
-    friendship = Friendship.find_by(user_id: current_user.id, friend_id: user.id)
-    if user.friend?(current_user)
+    friendship = Friendship.find_by(user_id: current_user.id, friend_id: friend.id)
+    if friend.friends?(current_user)
       link_to('Dismiss Friendship', user_friendship_path(id: friendship.id, post_id: post.id), method: :delete)
     else
-      link_to('Request Friendship', user_friendships_path(user_id: current_user, friend_id: user.id), method: :post)
+      link_to('Request Friendship', user_friendships_path(user_id: current_user, friend_id: friend.id), method: :post)
     end
+  end
+
+  def accept(friendship, friend)
+    link_to('Confirm friendship', user_friendship_path(id: friendship.id, user_id: friend.id, confirmed: true), method: :post)
   end
 
   def pending_invitations
@@ -32,5 +36,9 @@ module ApplicationHelper
 
   def pending_requests
     current_user.friendship_requests
+  end
+
+  def total_invitations
+    pending_invitations.count + pending_requests.count
   end
 end

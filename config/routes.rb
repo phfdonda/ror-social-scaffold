@@ -11,4 +11,6 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
     resources :likes, only: [:create, :destroy]
   end
+
+  get 'pending_friendships', to: 'friendships#index'
 end

@@ -89,8 +89,8 @@ TBA
 
 ## To Do
 
-- Create a page with pending invitations and friendship friend_requests
-- Create an option for accepting a friend
+- Create a page with pending invitations and friendship friend_requests - DONE
+- Create an option for accepting a friend - IN PROGRESS
 - Just show posts of friends and current user.
 - Change the button when you invite someone
 
