@@ -4,7 +4,7 @@ class Friendship < ApplicationRecord
   belongs_to :user
   belongs_to :friend, class_name: 'User'
 
-  scope :find_friendship, ->(user = nil, friend = nil) { find_by(user_id: user, friend_id: friend) }
+  scope :find_friendship, ->(user, friend) { find_by(user_id: user.id, friend_id: friend.id) }
 
   def prevent_duplication
     friend = User.find_user(friend_id)

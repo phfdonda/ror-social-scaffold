@@ -16,16 +16,10 @@ class User < ApplicationRecord
 
   scope :find_user, ->(user = false) { find(user) }
 
-  # TODO: change method to use scopes
   def friends
-    friends_array = confirmed_friendships
-    friends_array += inverse_friendships.map { |friendship| friendship.friendship.user if friendship.confirmed }
+    friends_array = confirmed_friendships.to_a
+    friends_array += inverse_friendships.to_a
     friends_array.compact
-  end
-
-  # TODO: !!! FIX THIS
-  def friend_requests
-    friendship_requests.pending_friendships
   end
 
   def confirm_friend(user)
@@ -41,14 +35,33 @@ class User < ApplicationRecord
 
   # TODO: make friends? and semifriends? to work
   def friends?(possible_friend)
-    return false if confirmed_friendships.empty?
-
-    confirmed_friendships.find_friendship(self, possible_friend) ? true : false
+    check_confirmed?(self, possible_friend) || check_confirmed?(possible_friend, self) ? true : false
   end
 
   def semifriends?(possible_friend)
+    check_pending?(self, possible_friend) || check_request?(possible_friend, self) ? true : false
+  end
+
+  private
+
+  # Returns true if user1 has pending frienship with user2, else false
+  def check_pending?(user1, user2)
     return false if pending_friendships.empty?
 
-    pending_friendships.find_friendship(self, possible_friend) || pending_friendships.find_friendship(possible_friend, self) ? true : false
+    return true if pending_friendships.find_friendship(user1, user2)
+  end
+
+  # Returns true if user1 requested frienship with user2, else false
+  def check_request?(user1, user2)
+    return false if friendship_requests.empty?
+
+    return true if friendship_requests.find_friendship(user1, user2)
+  end
+
+  # Returns true if user1 has a confirmed friendship with user2, else false
+  def check_confirmed?(user1, user2)
+    return false if confirmed_friendships.empty?
+
+    return true if confirmed_friendships.find_friendship(user1, user2)
   end
 end
