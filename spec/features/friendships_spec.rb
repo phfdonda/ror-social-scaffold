@@ -6,7 +6,7 @@ RSpec.feature 'Friendship' do
 
   context 'User add a friend' do
 
-    it 'friend request is created' do
+    it 'should send a friend request' do
       friend
       login_user(user)
       visit user_path(id: friend.id)
@@ -16,7 +16,7 @@ RSpec.feature 'Friendship' do
     end
 
     it 'two objects are created when you send a friend request' do
-      click_link 'Request Friendship'
+      # click_link 'Request Friendship'
       friendship = Friendship.last
       friendship_two = Friendship.first
       expect(friendship.id).to eql(friendship_two.id + 1)

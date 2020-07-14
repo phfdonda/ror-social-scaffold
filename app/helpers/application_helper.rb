@@ -19,8 +19,8 @@ module ApplicationHelper
   def add_friend(friend)
      # TODO: CHANGE find_by to model scope
     friendship = Friendship.find_friendship(current_user.id, friend.id)
-    if user.friend?(current_user)
-      link_to('Dismiss Friendship', user_friendship_path(id: friendship.id, post_id: post.id), method: :delete)
+    if friend.friends?(current_user)
+      link_to('Dismiss Friendship', user_friendship_path(id: friendship.id), method: :delete)
     else
       link_to('Request Friendship', user_friendships_path(user_id: current_user, friend_id: friend.id), method: :post)
     end
