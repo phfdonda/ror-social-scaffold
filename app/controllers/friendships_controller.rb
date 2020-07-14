@@ -26,11 +26,12 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    user = User.find_user(current_user)
+    user = User.find(current_user[:id])
     friend = User.find(params[:id])
     @friendship = Friendship.find_by(user_id: friend, friend_id: user)
-    @inverse_friendship = Friendship.find_by(user_id: user, friend_id: friend)
-    @inverse_friendship.delete if @friendship.delete
+    @friendship.delete
+    # @inverse_friendship = Friendship.find_by(user_id: user, friend_id: friend)
+    # @inverse_friendship.delete if @friendship.delete
   end
 
   private

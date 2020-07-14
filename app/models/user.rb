@@ -43,11 +43,11 @@ class User < ApplicationRecord
   def friends?(possible_friend)
     return false if confirmed_friendships.empty?
 
-    confirmed_friendships.find_friendship(possible_friend) ? true : false
+    confirmed_friendships.find_friendship(current_user, possible_friend) ? true : false
   end
 
   def semifriends?(possible_friend)
-    return false if pending_friendships.nil?
+    return false if pending_friendships.empty?
 
     pending_friendships.find_friendship(possible_friend) ? true : false
   end
