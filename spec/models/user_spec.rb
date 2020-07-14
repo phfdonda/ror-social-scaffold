@@ -45,12 +45,14 @@ RSpec.describe 'User' do
 
     it 'should be able to find friend among friend requests' do
       create(:unconfirmed_friendship)
-      expect(friend.semifriends?(user)).to eql(true)
+      byebug
+      expect(user.semifriends?(friend)).to eql(true)
     end
 
     it 'return true if friend is among accepted friends' do
       create(:confirmed_friendship)
-      expect(user.friends?(friend)).to eql(true)
+      expect(friend.friends?(user)).to eql(true)
     end
+
   end
 end

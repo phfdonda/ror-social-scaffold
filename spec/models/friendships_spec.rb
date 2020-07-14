@@ -8,7 +8,6 @@ RSpec.describe 'Friendship' do
     it 'should raise an exception if a user tries to befriend another twice' do
       original_friendship = create(:confirmed_friendship)
       duplicated_friendship = build(:confirmed_friendship)
-      byebug
       expect { duplicated_friendship.save }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
