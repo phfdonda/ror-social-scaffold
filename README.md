@@ -96,3 +96,4 @@ TBA
 
 - Do not allow double friendship friend_requests - IN PROGRESS
 - Do not allow friendship with yourself - DONE
+- Change method friends to use scopes - TODO
