@@ -4,6 +4,10 @@
 
 This app is a Rails project for the Microverse's RoR curriculum, following TOP curriculum for webdevelopment. We have practiced how to deal with self-join tables and much more.
 
+## Live version
+
+Visit the [live version](https://whispering-wave-99254.herokuapp.com/) of this Social App. 
+
 ## About the project
 
 In this app, you can create ask people to be friends! (we don't guarantee they'll accept)
