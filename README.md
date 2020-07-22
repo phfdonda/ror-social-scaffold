@@ -10,7 +10,7 @@ Visit the [live version](https://whispering-wave-99254.herokuapp.com/) of this S
 
 ## About the project
 
-In this app, you can create ask people to be friends! (we don't guarantee they'll accept)
+In this app, you can ask people to be friends! (we don't guarantee they'll accept)
 
 ## Authorization
 
@@ -34,8 +34,6 @@ For asking someone to be your friend, or even see their posts, you need to log i
 
 ![User's show page](./docs/user_show.png)
 
-### Users' index - see all users. You can add them if you want - or break up too, your treat.
-![Show all users](.docs/show_all_users.png)
 
 ## Validations
 
@@ -46,6 +44,11 @@ For asking someone to be your friend, or even see their posts, you need to log i
 
 - [Ruby](https://www.ruby-lang.org/en/) 2.7.0 - A programming language.
 - [Ruby on Rails](https://rubyonrails.org/) 6.0.3.1 - A Ruby framework for web development
+
+## Database
+
+- Whenever you ask to befriend someone, you create an instance of Friendship table.
+- Whenever you accept the friendship, you create another instance, with ids reversed, and update both instances with "confirmed = true".
 
 ## Getting started
 
@@ -86,7 +89,7 @@ You can run tests with
 👤 **Pedro Donda**
 
 - Github: [@Phfdonda](https://github.com/phfdonda)
-- Twitter: [@srjuanpapas](https://twitter.com/phfdonda)
+- Twitter: [@phfdonda](https://twitter.com/phfdonda)
 - Linkedin: [Pedro Donda](https://www.linkedin.com/in/pedro-donda-808621bb/)
 - Contact: [E-mail](phfdonda@gmail.com)
 
@@ -104,3 +107,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * Hat tip to anyone whose code was used
+
+## TODO
+
+- Check specs
