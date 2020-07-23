@@ -72,6 +72,7 @@ For asking someone to be your friend, or even see their posts, you need to log i
 
 3. Migrate the database.
 
+`$ rails db:create`
 `$ rails db:migrate`
 
 ### Running the tests
